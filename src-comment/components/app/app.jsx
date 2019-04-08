@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import CommentList from  '../comment-list/comment-list'
 import CommentAdd from '../comment-add/comment-add'
-import PubSub from 'pubsub-js'
  
 export default class App extends Component {
      //给组件对象指定state属性
@@ -13,14 +12,6 @@ export default class App extends Component {
                 {username:"jack",content:"太难了"}  
             ]
         }
-
-        componentDidMount(){
-          //订阅消息(deleteComment)
-          PubSub.subscribe('deleteComment',(msg,index)=>{
-            this.deleteComment(index)
-          })
-        }
-
         //添加评论
    addComment = (comment) =>{
         const comments = this.state.comments
@@ -51,7 +42,7 @@ export default class App extends Component {
     </header>
     <div className="container">
         <CommentAdd addComment={this.addComment} ></CommentAdd>
-        <CommentList   comments={comments}></CommentList>
+        <CommentList  deleteComment={this.deleteComment}  comments={comments}></CommentList>
        </div>
   </div>
     )

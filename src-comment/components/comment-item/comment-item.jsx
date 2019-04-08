@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import './commentitem.css'
-import PubSub from 'pubsub-js'
 
 export default class CommentItem extends Component {
 
@@ -11,12 +10,13 @@ export default class CommentItem extends Component {
         index: PropTypes.number.isRequired
     }
     handledelete = () =>{
+        const deleteComment = this.props.deleteComment
         const comment = this.props.comment
         const index = this.props.index
         //提示 确定后删除
         if (window.confirm(`确定删除${comment.username}的评论吗？`)){
              //确定后删除
-          PubSub.publish('deleteComment',index)
+             deleteComment(index)
         }
     }
 
